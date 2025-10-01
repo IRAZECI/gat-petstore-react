@@ -1,0 +1,147 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  /* MUDANÇA: Corrigida a cor de fundo para a correta do Figma */
+  background-color: #e9e9e9; 
+}
+
+/* Estilos para o componente Hero, usando as classes do seu esqueleto */
+@layer components {
+  .hero-container {
+    /* MUDANÇA: Trocamos bg-transparent por bg-[#e9e9e9] para garantir a cor correta */
+    @apply bg-[#e9e9e9] flex items-center container mx-auto px-4 py-16;
+  }
+
+  .hero-info {
+    /* Aumentei o padding esquerdo para deslocar o conteúdo mais para a direita */
+    @apply w-1/2 flex flex-col pl-24;
+  }
+
+  /* NOVO: Wrapper para o título e o círculo */
+  .hero-title-wrapper {
+    @apply relative mb-6; /* Ancoragem para o círculo */
+  }
+
+  /* NOVO: Círculo de fundo decorativo */
+  .hero-title-bg-circle {
+    @apply absolute top-1/2 left-16 -translate-y-1/2 w-[250px] h-[250px] bg-[#EAD9C6] rounded-full;
+  }
+
+  .hero-title {
+    /* MUDANÇA: Adicionado 'relative' para garantir que fique na frente do círculo */
+    @apply relative font-logo text-gat-dark text-8xl leading-none;
+  }
+
+  .hero-subtitle {
+    @apply font-sans text-lg text-gat-gray mt-4 mb-8 max-w-md;
+  }
+
+  .hero-button {
+    @apply bg-gat-dark text-gat-text-light font-sans font-semibold py-3 px-8 rounded-full hover:bg-gat-dark-light transition-colors;
+  }
+
+  /* Wrapper para a coluna da direita */
+  .hero-image-wrapper {
+    @apply w-1/2 relative flex justify-center items-center;
+  }
+
+  /* Imagem responsiva */
+  .hero-image {
+    @apply max-w-full h-auto;
+  }
+
+  /* Container para os controles */
+  .carousel-controls {
+    /* Posiciona os controles sobre a imagem, na parte de baixo */
+    @apply absolute bottom-8 w-full flex justify-center items-center space-x-8;
+  }
+
+  .arrow {
+    @apply text-3xl text-gat-dark cursor-pointer hover:opacity-70 transition-opacity;
+  }
+
+  .dots {
+    @apply flex items-center space-x-2;
+  }
+  
+  .dot {
+    @apply w-2 h-2 bg-gat-gray/50 rounded-full cursor-pointer transition-colors;
+  }
+  
+  .dot.active {
+    @apply bg-gat-dark;
+  }
+
+  /* --- NOVOS ESTILOS PARA O BenefitsBar --- */
+  .benefits-bar-wrapper {
+    /* A propriedade de cor foi removida daqui para ser controlada pelo JSX */
+    @apply pb-12;
+  }
+
+  .benefits-container {
+    /* Fundo escuro, bordas quadradas, espaçamento e layout flex para não distorcer */
+    @apply bg-gat-dark flex items-center justify-around flex-wrap gap-8 p-6;
+  }
+
+  .benefit-main,
+  .benefit-secondary {
+    @apply flex items-center gap-4;
+  }
+
+  .benefit-number {
+    @apply font-logo text-5xl text-white;
+  }
+
+  .benefit-title,
+  .benefit-title-secondary {
+    @apply font-sans font-semibold text-white text-base m-0;
+  }
+
+  .benefit-description {
+    @apply font-sans text-sm text-gat-text-light/70 mt-1 m-0;
+  }
+
+  /* Ticker de Notícias */
+  .ticker-wrap {
+    /* MUDANÇA: Fundo alterado para escuro para combinar com a barra de benefícios */
+    @apply bg-gat-dark overflow-hidden whitespace-nowrap border-t border-white/20;
+  }
+
+  .ticker-move {
+    @apply inline-block py-3;
+    /* Animação aplicada aqui */
+    animation: ticker-animation 30s linear infinite;
+  }
+
+  .ticker-move span {
+    /* MUDANÇA: Cor do texto alterada para branco */
+    @apply inline-block px-8 text-white font-sans font-medium;
+  }
+
+  /* --- Estilos para ContentVideo.jsx --- */
+  .play-button {
+    @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
+           w-20 h-20 bg-black/50 border-2 border-white rounded-full 
+           cursor-pointer z-10 transition-all duration-300
+           flex items-center justify-center; /* MUDANÇA: Adicionado flexbox para centralizar o ::after */
+  }
+
+  .play-button::after {
+    content: '';
+    @apply block w-0 h-0 border-t-[15px] border-t-transparent border-b-[15px] border-b-transparent border-l-[25px] border-l-white
+           pl-1; /* MUDANÇA: Trocamos 'margin-left' por 'padding-left' para um melhor alinhamento com flexbox */
+  }
+}
+
+/* Animação do Ticker (precisa ficar fora do @layer) */
+@keyframes ticker-animation {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
